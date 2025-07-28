@@ -1,3 +1,5 @@
+import WeatherWidget from '../components/weatherwidgets';
+
 export default function Dashboard() {
     return (
         <main className="min-h-screen bg-gray-100 p-6">
@@ -5,6 +7,9 @@ export default function Dashboard() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div className="bg-white p-4 rounded-lg shadow">🌤️ Weather Widget</div>
+                    <div className="bg-white p-4 rounded-lg shadow">
+                        <WeatherWidget />
+                    </div>
                 <div className="bg-white p-4 rounded-lg shadow">🐙 GitHub Widget</div>
                 <div className="bg-white p-4 rounded-lg shadow">📰 News Widget</div>
             </div>
