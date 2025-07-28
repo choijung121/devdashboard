@@ -70,13 +70,15 @@ export default function WeatherWidget() {
     }
 
     return (
-        <div>
+        <div className="relative">
             <h2 className="text-lg font-semibold mb-2">🌤️ Weather in {weather.name}</h2>
             <button
                 onClick={() => 
                     setUnit((prev) => (prev === 'imperial' ? 'metric' : 'imperial'))
-                } className="text-sm bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded">
-                °C/°F
+                } 
+                className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-sm"
+            >
+                °{unit === 'metric' ? 'F' : 'C'}
             </button>
             <p>{capitalize(weather.weather[0].description)}</p>
             <p>🌡️ Temp: {Math.round(tempConvert(weather.main.temp, 'imperial', unit))}{unitSymbol}</p>
