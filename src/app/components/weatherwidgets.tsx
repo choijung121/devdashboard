@@ -83,7 +83,7 @@ export default function WeatherWidget() {
                             setUnit((prev) => (prev === 'imperial' ? 'metric' : 'imperial'))
                         }}
                         className={`relative inline-flex h-8 w-16 items-center rounded-full transition-colors ${
-                            unit === 'imperial' ? 'bg-red-400' : 'bg-blue-400'
+                            unit === 'imperial' ? 'bg-red-400 hover:bg-red-500' : 'bg-blue-400 hover:bg-blue-500'
                         }`}
                     >
                         <span className={`relative inline-flex h-6 w-6 transform rounded-full bg-white transition-transform shadow-sm items-center justify-center ${

@@ -1,3 +1,4 @@
+import GitHubWidget from '../components/githubwidgets';
 import WeatherWidget from '../components/weatherwidgets';
 
 export default function Dashboard() {
@@ -9,7 +10,9 @@ export default function Dashboard() {
                 <div className="bg-white p-4 rounded-lg shadow">
                     <WeatherWidget />
                 </div>
-                <div className="bg-white p-4 rounded-lg shadow">🐙 GitHub Widget</div>
+                <div className="bg-white p-4 rounded-lg shadow">
+                    <GitHubWidget />
+                </div>
                 <div className="bg-white p-4 rounded-lg shadow">📰 News Widget</div>
             </div>
         </main>
