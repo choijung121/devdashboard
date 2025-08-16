@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getContributionData } from "@/lib/github";
 
 interface Repo {
     id: number; 
     name: string; 
     html_url: string; 
-    stargazers_count: number;
-    updated_at: string;
+    description: string | null;
 }
 
 interface Profile {
@@ -28,7 +29,7 @@ export default function GitHubWidget() {
             try {
                 const [profileRes, reposRes] = await Promise.all([
                     fetch(`https://api.github.com/users/${username}`),
-                    fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=3`)
+                    fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=2`)
                 ]);
 
                 const profileData = await profileRes.json();
@@ -49,30 +50,31 @@ export default function GitHubWidget() {
     if (!profile) return <div className="bg-white p-4 rounded-xl shadow-md">Failed to load GitHub data</div>;
 
     return (
-        <div className="relative p-4 max-w-md mx-auto">
-            {/* Profile Section */}
-            <div className="flex items-center gap-4 mb-4">
-                <img src={profile.avatar_url} alt={profile.name} className="w-16 h-16 rounded-full" />
-                <div>
-                <a href={profile.html_url} target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-blue-600">
-                    {profile.name}
-                </a>
-                <p className="text-sm text-gray-600">{profile.bio}</p>
-                </div>
-            </div>
-
-            {/* Repos List */}
-            <h3 className="font-semibold mb-2">Latest Repositories</h3>
-            <ul className="space-y-2">
-                {repos.map(repo => (
-                    <li key={repo.id} className="pb-1">
-                        <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
-                            {repo.name}
-                        </a>
-                        <div className="text-xs text-gray-500">
-                            ⭐ {repo.stargazers_count} • Updated {new Date(repo.updated_at).toLocaleDateString()}
+        <div className="relative p-3 max-w-md mx-auto">
+            {/* Contribution Graph */}
+            <div>
+                <a href={profile.html_url}>
+                    <div className="flex items-center gap-4 mb-4 p-3 rounded-lg transition-all duration-300 hover:shadow-md hover:bg-gray-50 cursor-pointer">
+                        <img src={profile.avatar_url} alt={profile.name} className="w-16 h-16 rounded-full" />
+                        <div>
+                            <p className="text-lg font-bold">{profile.name}</p>
+                            <p className="text-sm text-gray-600">{profile.bio}</p>
                         </div>
-                    </li>
+                    </div>
+                </a>
+            </div>
+            
+            {/* Repos List */}
+            <h3 className="font-semibold mb-2">My Repositories</h3>
+            <ul className="space-y-0">
+                {repos.map(repo => (
+                    <a href={repo.html_url} key={repo.id}>
+                        <li className="pb-3 p-1 rounded-lg transition-all duration-300 hover:shadow-md hover:bg-gray-50 cursor-pointer">
+                            <p className="text-sm font-bold">{repo.name}</p>
+                            <p className="text-xs text-gray-600">{repo.description} </p>
+                        </li>
+                    </a>
+                    
                 ))}
             </ul>
         </div>
