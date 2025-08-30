@@ -1,58 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
-// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getContributionData } from "@/lib/github";
-
-interface Repo {
-    id: number; 
-    name: string; 
-    html_url: string; 
-    description: string | null;
-}
-
-interface Profile {
-    avatar_url: string;
-    html_url: string;
-    name: string;
-    bio: string;
-}
+import RepoList from "./github/repository";
+import GitHubCalendar from "./github/calendar";
 
 export default function GitHubWidget() {
-    const [profile, setProfile] = useState<Profile | null>(null);
-    const [repos, setRepos] = useState<Repo[]>([]);
-    const [loading, setLoading] = useState(true);
-    const username = "choijung121"; // Replace with your GitHub username
-
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const [profileRes, reposRes] = await Promise.all([
-                    fetch(`https://api.github.com/users/${username}`),
-                    fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=2`)
-                ]);
-
-                const profileData = await profileRes.json();
-                const reposData = await reposRes.json();
-
-                setProfile(profileData);
-                setRepos(reposData);
-            } catch (error) {
-                console.error("Error fetching GitHub data:", error);
-            } finally {
-                setLoading(false); 
-            }
-        } 
-        fetchData();
-    }, [])
-
-    if (loading) return <div className="bg-white p-4 rounded-xl shadow-md">Loading...</div>;
-    if (!profile) return <div className="bg-white p-4 rounded-xl shadow-md">Failed to load GitHub data</div>;
-
     return (
         <div className="relative p-3 max-w-md mx-auto">
             {/* Contribution Graph */}
-            <div>
+            <GitHubCalendar />
+            {/* <div>
                 <a href={profile.html_url}>
                     <div className="flex items-center gap-4 mb-4 p-3 rounded-lg transition-all duration-300 hover:shadow-md hover:bg-gray-50 cursor-pointer">
                         <img src={profile.avatar_url} alt={profile.name} className="w-16 h-16 rounded-full" />
@@ -62,21 +18,10 @@ export default function GitHubWidget() {
                         </div>
                     </div>
                 </a>
-            </div>
+            </div> */}
             
             {/* Repos List */}
-            <h3 className="font-semibold mb-2">My Repositories</h3>
-            <ul className="space-y-0">
-                {repos.map(repo => (
-                    <a href={repo.html_url} key={repo.id}>
-                        <li className="pb-3 p-1 rounded-lg transition-all duration-300 hover:shadow-md hover:bg-gray-50 cursor-pointer">
-                            <p className="text-sm font-bold">{repo.name}</p>
-                            <p className="text-xs text-gray-600">{repo.description} </p>
-                        </li>
-                    </a>
-                    
-                ))}
-            </ul>
+            <RepoList />
         </div>
     );
 }   
