@@ -25,8 +25,8 @@ export default function RepoList() {
         async function fetchData() {
             try {
                 const [profileRes, reposRes] = await Promise.all([
-                    fetch(`https://api.github.com/users/${process.env.GITHUB_USERNAME}`),
-                    fetch(`https://api.github.com/users/${process.env.GITHUB_USERNAME}/repos?sort=updated&per_page=2`)
+                    fetch(`https://api.github.com/users/choijung121`),
+                    fetch(`https://api.github.com/users/choijung121/repos?sort=updated&per_page=2`)
                 ]);
 
                 const profileData = await profileRes.json();
@@ -49,12 +49,12 @@ export default function RepoList() {
     return (
         <div className="relative p-3 max-w-md mx-auto"> 
             {/* Repos List */}
-            <h3 className="font-semibold mb-2">My Repositories</h3>
+            <h3 className="font-semibold mb-2 text-lg">My Repositories</h3>
             <ul className="space-y-0">
                 {repos.map(repo => (
                     <a href={repo.html_url} key={repo.id}>
                         <li className="pb-3 p-1 rounded-lg transition-all duration-300 hover:shadow-md hover:bg-gray-50 cursor-pointer">
-                            <p className="text-sm font-bold">{repo.name}</p>
+                            <p className="text-md font-bold">{repo.name}</p>
                             <p className="text-xs text-gray-600">{repo.description} </p>
                         </li>
                     </a>
