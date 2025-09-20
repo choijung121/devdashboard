@@ -16,7 +16,7 @@ interface Profile {
     bio: string;
 }
 
-export default function RepoList() {
+export default function AboutMe() {
     const [profile, setProfile] = useState<Profile | null>(null);
     const [repos, setRepos] = useState<Repo[]>([]);
     const [loading, setLoading] = useState(true);
@@ -49,18 +49,12 @@ export default function RepoList() {
     return (
         <div className="relative p-3 max-w-md mx-auto"> 
             {/* Repos List */}
-            <h3 className="font-semibold mb-2 text-lg">My Repositories</h3>
-            <ul className="space-y-0">
-                {repos.map(repo => (
-                    <a href={repo.html_url} key={repo.id}>
-                        <li className="pb-3 p-1 rounded-lg transition-all duration-300 hover:shadow-md hover:bg-gray-50 cursor-pointer">
-                            <p className="text-md font-bold">{repo.name}</p>
-                            <p className="text-xs text-gray-600">{repo.description} </p>
-                        </li>
-                    </a>
-                    
-                ))}
-            </ul>
+            <h3 className="font-semibold mb-2 text-lg">📰 About Me</h3>
+            <p className="space-y-0">Hi! I'm Jung, a passionate QA Engineer during the day, and tinkerer during the night. I loves building cool stuff and exploring new technologies.</p>
+            <p className="space-y-0">I'm just having fun making this! Enjoy your day! 😊</p>
+            <li>
+                <a href="https://www.linkedin.com/in/jung-choi-4767a7172/">LinkedIn</a>
+            </li>
         </div>
     );
 }   

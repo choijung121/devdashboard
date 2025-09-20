@@ -1,5 +1,6 @@
 import GitHubWidget from '../components/githubwidgets';
 import WeatherWidget from '../components/weatherwidgets';
+import AboutMe from '../components/aboutme';
 
 export default function Dashboard() {
     return (
@@ -13,7 +14,9 @@ export default function Dashboard() {
                 <div className="bg-white p-4 rounded-lg shadow">
                     <GitHubWidget />
                 </div>
-                <div className="bg-white p-4 rounded-lg shadow">📰 About Me / LinkedIn</div>
+                <div className="bg-white p-4 rounded-lg shadow">
+                    <AboutMe />
+                </div>
             </div>
         </main>
     )
